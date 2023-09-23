@@ -77,8 +77,9 @@ Reg add %%r /v "GigaLite" /t REG_SZ /d "0" /f
 Reg add %%r /v "PowerSavingMode" /t REG_SZ /d "0" /f 
 reg add "HKCU\Control Panel\Desktop" /v "Visual Effects" /d "0" /t REG_DWORD /f
 reg add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\AutoUpdate" /v "AUOptions" /d "3" /t REG_DWORD /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerSettings\ActiveScheme\PowerSettings" /v "DiskTimeOut" /d "0" /t REG_DWORD 
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerSettings\ActiveScheme\PowerSettings" /v "DiskTimeOut" /d "0" /t REG_DWORD /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerSettings\ActiveScheme\PowerSettings" /v "ScreenOffTimeout" /d "0" /t REG_DWORD /f
+cls
 Echo Deseja desinstalar apps do windows?
 Echo Esse procedimento precisa ser feito apenas uma vez
 SET /P choice=  [101;42mS / N:[0m  
@@ -112,6 +113,7 @@ IF /I "%choice%"=="N" goto next
 @powershell "Get-AppxPackage 'Microsoft.Advertising.Xaml' | Remove-AppxPackage"
 @powershell "Get-AppxPackage 'Microsoft.Office.OneNote' | Remove-AppxPackage"
 @powershell "Get-AppxPackage 'Microsoft.YourPhone' | Remove-AppxPackage"
+cls
 goto :next
 :next
 bcdedit /set useplatformtick yes
@@ -211,7 +213,7 @@ netsh interface IP add DNS name="Local Area Connection 4" %DNS_sec% index=2
 netsh interface ipv4 set dns name="Local Area Connection 5" static %DNS_menor% primary
 netsh interface IP add DNS name="Local Area Connection 5" %DNS_sec% index=2
 
-echo A DNS com o menor ping é: %DNS_menor%
+echo A DNS com o menor ping: %DNS_menor%
 rd /s /q C:\$Recycle.bin
 
 FOR /F "tokens=1,2*" %%V IN ('bcdedit') DO SET adminTest=%%V
@@ -224,6 +226,7 @@ wevtutil.exe cl %1
 :noAdmin
 
 :loop
+   cls
    Title MENU
    Echo M E N U
    Echo 1 Para abrir a area de trabalho
